@@ -3,20 +3,31 @@ import time
 import logging
 from app.app import app
 from flask import request
+from app.model.official import Official
 from random import randint
 from flask import jsonify, g
+
+OFFICIALS = {}
+
+
+def init():
+    with open('app/tmp/officials.txt') as file:
+        line = file.readline()
+        while line != '':
+            id, name, surname, patronymic, photo = line.split()
+            name = f'{name} {surname} {patronymic}'
+            OFFICIALS[id] = Official(id, photo, name)
+            line = file.readline()
 
 
 @app.route('/official', methods=['GET'])
 def official():
-    region = request.args.get('region')
-    if region is None:
-        region = '77'
+    return 'official'
 
-    count = api.get_declaration_count(region)
-    off_id = randint(0, count)
 
-    return jsonify(vars(api.get_official(region, off_id)))
+@app.route('/item', methods=['GET'])
+def item():
+    return 'item'
 
 
 @app.before_request
@@ -31,3 +42,6 @@ def post_handler(response):
     logging.info(msg)
 
     return response
+
+
+init()
