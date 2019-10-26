@@ -1,7 +1,7 @@
 <template>
   <background>
     <template #border-top>
-      Bluckwheat
+      Buckwheat
     </template>
     <template #yellow>
       F
