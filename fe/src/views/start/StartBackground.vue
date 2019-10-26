@@ -57,7 +57,7 @@
     color: var(--purple);
     font-size: 72px;
     position: relative;
-    bottom: 25%;
+    bottom: 45%;
   }
 
   .yellow::before {

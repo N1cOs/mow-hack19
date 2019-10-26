@@ -1,5 +1,14 @@
 <template>
   <div class="root">
+    <div style="position: fixed; left: 50%; transform: translate(-50%); top: 8%; font-size: 48px;
+     line-height: 20px;">
+      <span v-show="showTrue" style="color: #7BF5C2">
+        Верно!
+      </span>
+      <span v-show="showFalse" style="color:#FF8880;">
+        Неверно!
+      </span>
+    </div>
     <div :class="['yellow', 'xl-h', successPurple, failPurple]" @click="tryYellow" ref="yellow">
       <div class="yellow-border">
         {{ this.surname }}
@@ -32,7 +41,7 @@
 
       </div>
     </div>
-    <div class="question">
+    <div class="question" v-show="!(showFalse || showTrue)">
       Что больше?
     </div>
   </div>
@@ -48,6 +57,9 @@
         successP: false,
         failY: false,
         failP: false,
+        showTrue: false,
+        showFalse: false,
+        buttonPressed: false
       };
     },
 
@@ -75,21 +87,30 @@
 
     methods: {
       tryYellow() {
-          // 'rgba(23, 24, 25, 0.5);'
-        if (this.income >= 100) {
-          this.successY = true;
-        } else {
-          this.failY = true;
+        if (!this.buttonPressed) {
+          if (this.income >= 100) {
+            this.successY = true;
+            setTimeout(() => {
+                this.showTrue = true;
+              }, 1000);
+          } else {
+            this.failY = true;
+            setTimeout(() => this.showFalse = true, 1000);
+          }
+          this.buttonPressed = true;
         }
       },
 
       tryPurple() {
-          // 'rgba(23, 24, 25, 0.5);'
-
-        if (100 >= this.income) {
-          this.successP = true;
-        } else {
-          this.failP = true;
+        if (!this.buttonPressed) {
+          if (100 >= this.income) {
+            this.successP = true;
+            setTimeout(() => this.showTrue = true, 1000);
+          } else {
+            this.failP = true;
+            setTimeout(() => this.showFalse = true, 1000);
+          }
+          this.buttonPressed = true;
         }
       },
     },
@@ -115,7 +136,6 @@
 </script>
 
 
-
 <style scoped>
   .root {
     background-color: black;
@@ -124,7 +144,7 @@
   }
 
   .purple.success-yellow, .purple.fail-yellow {
-    transition: background-color  0.5s ease;
+    transition: background-color 0.5s ease;
     background-color: rgb(61, 39, 85);
   }
 
@@ -133,8 +153,8 @@
     color: rgb(108, 93, 65);
   }
 
-  .yellow.success-purple, .yellow.fail-purple  {
-    transition: background-color  0.5s ease;
+  .yellow.success-purple, .yellow.fail-purple {
+    transition: background-color 0.5s ease;
     background-color: rgb(140, 119, 82);
   }
 
@@ -151,7 +171,7 @@
 
   .success-purple img,
   .fail-purple img {
-    transition: opacity  0.5s ease;
+    transition: opacity 0.5s ease;
     opacity: 0.5;
   }
 
