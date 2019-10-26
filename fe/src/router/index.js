@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import StartScreen from '../views/start/StartScreen';
-import GameScreen from '../views/game/GameScreen';
-import FinalScreen from '../views/final/FinalScreen';
+import StartScreen from '../views/StartScreen';
+import GameScreen from '../views/GameScreen';
+import FinalScreen from '../views/FinalScreen';
 
 Vue.use(VueRouter);
 
@@ -21,7 +21,7 @@ const routes = [
     path: '/final',
     name: 'final',
     component: FinalScreen,
-  }
+  },
 ];
 
 const router = new VueRouter({
