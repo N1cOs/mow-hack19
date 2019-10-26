@@ -1,5 +1,6 @@
 import requests
 import json
+from app.model.official import Official
 
 
 def get_official(region, declaration_index):
@@ -8,18 +9,18 @@ def get_official(region, declaration_index):
     name = declaration['main']['person']['name']
     person = get_person(name, region)
     declaration = person['sections'][-1]['sections'][-1]
-    # income
+    
     total_income = 0
     incomes = declaration['incomes']
     for income in incomes:
         total_income += income['size']
-    # position
+    
     position = person['sections'][-1]['position']
-    # photo
     photo_url = get_photo(person_id)
-    # declaration url
     declaration_url = 'https://declarator.org/person/' + str(person_id)
-    return photo_url, name, position, total_income, declaration_url
+    region_name = get_region(region)
+
+    return Official(person_id, photo_url, name, position, region_name, total_income, declaration_url)
 
 
 def get_photo(person_id):
