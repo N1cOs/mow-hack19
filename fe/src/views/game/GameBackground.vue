@@ -114,6 +114,8 @@
   };
 </script>
 
+
+
 <style scoped>
   .root {
     background-color: black;
@@ -121,21 +123,38 @@
     height: 100%;
   }
 
-  .purple.success-yellow {
-    background-color: #3FA77C;
+  .purple.success-yellow, .purple.fail-yellow {
+    transition: background-color  0.5s ease;
+    background-color: rgb(61, 39, 85);
   }
 
-  .yellow.success-purple {
-    background-color: #7BF5C2;
+  .success-yellow .purple-inner, .fail-yellow .purple-inner {
+    transition: color 0.5s ease;
+    color: rgb(108, 93, 65);
   }
 
-  .purple.fail-yellow {
-    background-color: #DE5E55;
+  .yellow.success-purple, .yellow.fail-purple  {
+    transition: background-color  0.5s ease;
+    background-color: rgb(140, 119, 82);
   }
 
-  .yellow.fail-purple {
-    background-color: #FF8880;
+  .success-purple .yellow-inner, .fail-purple .yellow-inner {
+    transition: color 0.5s ease;
+    color: rgb(78, 47, 110);
   }
+
+  .success-purple .yellow-border,
+  .fail-purple .yellow-border {
+    transition: color 0.5s ease;
+    color: rgb(140, 119, 82);
+  }
+
+  .success-purple img,
+  .fail-purple img {
+    transition: opacity  0.5s ease;
+    opacity: 0.5;
+  }
+
 
   .yellow {
     background-color: var(--yellow);
@@ -155,11 +174,6 @@
     margin-right: 15px;
     text-align: left;
     margin-top: -74px;
-  }
-
-  .yellow .info image {
-    position: relative;
-    top: 70px;
   }
 
   .yellow .info div {
