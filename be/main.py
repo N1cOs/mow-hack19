@@ -1,3 +1,3 @@
-import app.test
+import app.routes
 from app.app import app
 
