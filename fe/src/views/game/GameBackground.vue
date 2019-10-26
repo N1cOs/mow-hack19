@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="['yellow', 'xl-h', successPurple, failPurple]" @click="tryYellow">
+    <div :class="['yellow', 'xl-h', successPurple, failPurple]" @click="tryYellow" ref="yellow">
       <div class="yellow-border">
         {{ this.surname }}
       </div>
@@ -20,17 +20,20 @@
               Москва
             </p>
           </div>
-          <img :src="this.photoUrl" width="115">
+          <img :src="this.photoUrl" width="115" height="150">
         </div>
       </div>
     </div>
-    <div :class="['purple', 'xs-h', successYellow, failYellow]" @click="tryPurple">
+    <div :class="['purple', 'xs-h', successYellow, failYellow]" @click="tryPurple" ref="purple">
       <div class="purple-inner">
 
       </div>
       <div class="purple-border">
 
       </div>
+    </div>
+    <div class="question">
+      Что больше?
     </div>
   </div>
 </template>
@@ -72,6 +75,7 @@
 
     methods: {
       tryYellow() {
+          // 'rgba(23, 24, 25, 0.5);'
         if (this.income >= 100) {
           this.successY = true;
         } else {
@@ -80,6 +84,8 @@
       },
 
       tryPurple() {
+          // 'rgba(23, 24, 25, 0.5);'
+
         if (100 >= this.income) {
           this.successP = true;
         } else {
@@ -148,7 +154,7 @@
     margin-left: 19px;
     margin-right: 15px;
     text-align: left;
-    margin-top: -70px;
+    margin-top: -74px;
   }
 
   .yellow .info image {
@@ -273,5 +279,13 @@
     transform: rotate(-4.33deg);
     text-align: right;
     padding-right: 6%;
+  }
+
+  .question {
+    color: #B6A6FC;
+    font-size: 20px;
+    line-height: 20px;
+    position: relative;
+    top: 64%;
   }
 </style>
