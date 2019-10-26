@@ -16,12 +16,12 @@ def get_official(person_id):
     for income in incomes:
         total_income += income['size']
 
-    position = person['sections'][-1]['position']
+    position = sections['sections'][-1]['position']
     photo_url = get_photo(person_id)
     declaration_url = 'https://declarator.org/person/' + str(person_id)
     year = declaration['main']['year']
 
-    if declaration['office']['region']:
+    if declaration['main']['office']['region']:
         region = declaration['office']['region']['id']
     else:
         region = None
