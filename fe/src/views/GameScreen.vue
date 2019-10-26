@@ -6,7 +6,7 @@
   import Background from './game/GameBackground';
   import axios from 'axios';
 
-  const SERVER_ADDRESS = 'http://194.58.90.165/bws';
+  const SERVER_ADDRESS = '/bws';
 
   const myAxios = axios.create({ baseURL: SERVER_ADDRESS });
 
