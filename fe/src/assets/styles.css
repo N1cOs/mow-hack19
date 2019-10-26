@@ -1,0 +1,33 @@
+:root {
+    --yellow: #FBD08B;
+    --purple: #7765C2;
+}
+
+.l-h {
+    height: 97px;
+}
+
+.xl-h {
+    height: 115px;
+}
+
+.s-h {
+    height: 56px;
+}
+
+.xs-h {
+    height: 51px;
+}
+
+.m-h {
+    height: 62px;
+}
+
+
+body, html, * {
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+}
