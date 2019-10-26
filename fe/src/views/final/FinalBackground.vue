@@ -1,21 +1,19 @@
 <template>
   <div class="root">
-    <router-link to="/game">
-      <div class="yellow xl-h">
-        <div  class="yellow-border">
-          <slot name="border-top"></slot>
-        </div>
-        <div class="yellow-inner">
-          <slot name="yellow"></slot>
-        </div>
+    <div class="yellow xl-h">
+      <div  class="yellow-border">
+        Bluckwheat
       </div>
-    </router-link>
+      <div class="yellow-inner">
+
+      </div>
+    </div>
     <div class="purple xs-h">
       <div class="purple-inner">
-        <slot name="purple"></slot>
+
       </div>
       <div class="purple-border">
-        <slot name="border-bottom"></slot>
+        salary
       </div>
     </div>
   </div>
@@ -23,7 +21,7 @@
 
 <script>
   export default {
-    name: 'StartBackground'
+    name: 'FinalBackground'
   };
 </script>
 
@@ -103,9 +101,7 @@
     height: 100%;
     top: 61px;
     left: 0;
-    -webkit-transform-origin: top left;
     transform-origin: top left;
-    -webkit-transform: skewY(5deg);
     transform: skewY(-4.33deg);
     background-color: var(--purple);
     z-index: -1;

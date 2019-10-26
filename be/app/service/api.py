@@ -97,6 +97,7 @@ def get_official_info(person_id):
     person = get_person(person_id)
     name = person['family_name'] + ' ' + \
         person['name'] + ' ' + person['patronymic']
+    name = str.replace(name, 'ё', 'е')
     sections = get_sections(name)
     declaration = sections['sections'][-1]['sections'][-1]
 
@@ -106,7 +107,7 @@ def get_official_info(person_id):
         total_income += income['size']
 
     position = sections['sections'][-1]['position']
-    photo_url = get_photo(person_id)
+    #photo_url = get_photo(person_id)
     declaration_url = 'https://declarator.org/person/' + str(person_id)
     year = declaration['main']['year']
 

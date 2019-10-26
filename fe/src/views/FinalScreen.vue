@@ -1,15 +1,15 @@
 <template>
-  <div>
-    Final
-    <router-link to="/game">
-      retry
-    </router-link>
-  </div>
+  <final-background>
+
+  </final-background>
 </template>
 
 <script>
+  import FinalBackground from './final/FinalBackground';
+
   export default {
-    name: 'FinalScreen'
+    name: 'FinalScreen',
+    components: { FinalBackground }
   };
 </script>
 

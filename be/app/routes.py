@@ -1,4 +1,5 @@
 import app.service.api as api
+import app.service.inflation as inflation
 import time
 import logging
 import re
@@ -45,6 +46,7 @@ def official():
     official = OFFICIALS[id]
 
     pos, region, income, year, declaration_url = api.get_official_info(id)
+    income = inflation.calc_inflation(income, year)
     official.position = pos
     official.regionName = region
     official.income = income
