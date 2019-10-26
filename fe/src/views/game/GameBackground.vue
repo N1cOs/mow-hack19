@@ -97,6 +97,8 @@
             this.failY = true;
             setTimeout(() => this.showFalse = true, 1000);
           }
+
+          setTimeout(() => this.$emit('getnext', ), 2000);
           this.buttonPressed = true;
         }
       },
@@ -110,6 +112,8 @@
             this.failP = true;
             setTimeout(() => this.showFalse = true, 1000);
           }
+
+          setTimeout(() => this.$forceUpdate(), 2000);
           this.buttonPressed = true;
         }
       },

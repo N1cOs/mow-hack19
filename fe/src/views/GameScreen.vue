@@ -1,9 +1,14 @@
 <template>
-    <background />
+  <background @getnext="getData"/>
 </template>
 
 <script>
   import Background from './game/GameBackground';
+  import axios from 'axios';
+
+  const SERVER_ADDRESS = 'http://194.58.90.165/bws';
+
+  const myAxios = axios.create({ baseURL: SERVER_ADDRESS });
 
   export default {
     name: 'BackgroundGame',
@@ -23,27 +28,27 @@
       };
     },
 
-    methods: {},
+    methods: {
+      getData() {
+        myAxios.get('/official')
+          .then(res => {
+            this.name = res.name;
+            this.photoUrl = res.photo_url;
+            this.regionName = res.region_name;
+            this.position = res.position;
+            this.income = res.income;
+            this.declaratorUrl = res.declarator_url;
+
+            this.$store.commit('addPerson', res);
+          })
+          .then(res => {
+
+          });
+      },
+    },
 
     mounted() {
-      // axios
-      //   .get('official')
-      //   .then(res => {
-      //     this.name = res.name;
-      //     this.photoUrl = res.photoUrl;
-      //     this.regionName = res.regionName;
-      //     this.position = res.position;
-      //     this.income = res.income;
-      //     this.declaratorUrl = res.declaratorUrl;
-      //
-      //     this.$store.commit('addPerson', res);
-      //   });
-      //
-      // axios
-      //   .get('item')
-      //   .then(res => {
-      //
-      //   });
+     this.getData();
     },
 
     computed: {
