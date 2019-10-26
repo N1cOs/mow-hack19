@@ -1,6 +1,10 @@
 <template>
   <div class="root">
-    <div style="position: fixed; left: 50%; transform: translate(-50%); top: 8%; font-size: 48px;
+    <div style="position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    top: 8%;
+    font-size: 48px;
      line-height: 20px;">
       <span v-show="showTrue" style="color: #7BF5C2">
         Верно!
@@ -79,7 +83,7 @@
       photoUrl: {
         default: 'https://declarator.org/media/cache/43/de/43deb2166a8c3d500277420c8d1850a1.png'
       },
-      products: [],
+      items: [],
       income: {
         default: 1000000
       }
@@ -91,14 +95,14 @@
           if (this.income >= 100) {
             this.successY = true;
             setTimeout(() => {
-                this.showTrue = true;
-              }, 1000);
+              this.showTrue = true;
+            }, 1000);
           } else {
             this.failY = true;
             setTimeout(() => this.showFalse = true, 1000);
           }
 
-          setTimeout(() => this.$emit('getnext', ), 2000);
+          setTimeout(() => this.$emit('getnext',), 2000);
           this.buttonPressed = true;
         }
       },
