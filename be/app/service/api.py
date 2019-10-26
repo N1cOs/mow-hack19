@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 def get_official(region, declaration_index):
     declaration = get_declaration(region, declaration_index)
     person_id = declaration['main']['person']['id']
