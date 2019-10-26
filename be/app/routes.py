@@ -49,7 +49,7 @@ def official():
     income = inflation.calc_inflation(income, year)
     official.position = pos
     official.regionName = region
-    official.income = income
+    official.income = round(income, 2)
     official.year = year
     official.declarationUrl = declaration_url
 
