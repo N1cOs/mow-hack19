@@ -1,11 +1,9 @@
-from app.app import db
-
-class Item(db.Model):
-    __tablename__ = 'item'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    unit = db.Column(db.String(20), nullable=False)
-    photo = db.Column(db.String(511), nullable=False)
+class Item:
+    def __init__(self, level, item_name, item_unit, item_count, full_price):
+        self.full_price = full_price
+        self.item_count = item_count
+        self.item_unit = item_unit
+        self.item_name = item_name
+        self.level = level
 
     
