@@ -10,8 +10,6 @@ def calculate_distribution(income, data):
     else:
         income = income * (0.5 + random.random() * 0.5)
 
-    print(income)
-
     out_items = []
     # check levels
     for level_index in data:
@@ -28,6 +26,6 @@ def calculate_distribution(income, data):
         full_price = item_count * item['price']
         income -= full_price
 
-        out_items.append(Item(level_index, item['name'], item['unit'], item_count, full_price))
+        out_items.append(Item(int(level_index), item['name'], item['unit'], item_count, round(full_price, 2)))
 
     return out_items

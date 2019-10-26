@@ -2,24 +2,31 @@ import app.service.api as api
 import time
 import logging
 import re
+import json
 from app.app import app
 from flask import request
 from app.model.official import Official
+from app.service.distribution import calculate_distribution
 from random import randint
 from flask import jsonify, g, abort
 
 OFFICIALS = {}
+ITEMS = {}
 OPTIONS_REGEX = re.compile(r'^((\d+?(\s?[,\s]\s?))*?)(\d+)$')
 
 
 def init():
-    with open('app/tmp/officials.txt') as file:
+    with open('app/tmp/officials.txt', 'r') as file:
         line = file.readline()
         while line != '':
             id, name, surname, patronymic, photo = line.split()
             name = f'{name} {surname} {patronymic}'
             OFFICIALS[int(id)] = Official(int(id), photo, name)
             line = file.readline()
+
+    with open('app/tmp/items.json', 'r') as file:
+        global ITEMS
+        ITEMS = json.load(file)
 
 
 @app.route('/official', methods=['GET'])
@@ -49,7 +56,20 @@ def official():
 
 @app.route('/item', methods=['GET'])
 def item():
-    return 'item'
+    income = request.args.get('income')
+    if income is None:
+        abort(400)
+    else:
+        income = int(income)
+
+    items = calculate_distribution(income, ITEMS)
+    resp, total_sum = {'items': []}, 0
+    for item in items:
+        resp['items'].append(vars(item))
+        total_sum += item.full_price
+    resp['totalSum'] = total_sum
+
+    return jsonify(resp)
 
 
 @app.before_request
