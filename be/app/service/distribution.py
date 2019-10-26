@@ -26,6 +26,7 @@ def calculate_distribution(income, data):
         full_price = item_count * item['price']
         income -= full_price
 
-        out_items.append(Item(int(level_index), item['name'], item['unit'], item_count, round(full_price, 2)))
+        out_items.append(Item(
+            int(level_index), item['name'], item['unit'], item_count, round(full_price)))
 
     return out_items
