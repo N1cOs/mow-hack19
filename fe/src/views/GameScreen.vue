@@ -1,28 +1,15 @@
 <template>
-  <div>
-    <background
-      :surname="surname"
-      :name="nameAndSecondName"
-      :position="position"
-      :regionName="regionName || 'Российская Федерация'"
-      :photoUrl="photoUrl"
-      :products="products"
-    />
-    <score />
-  </div>
+    <background />
 </template>
 
 <script>
   import Background from './game/GameBackground';
-  import Score from './game/Score';
-  import axios from 'axios';
 
   export default {
     name: 'BackgroundGame',
 
     components: {
       Background,
-      Score
     },
 
     data() {
@@ -31,31 +18,32 @@
         photoUrl: '',
         regionName: null,
         position: null,
-        products: []
+        products: [],
+        income: 0
       };
     },
 
     methods: {},
 
     mounted() {
-      axios
-        .get('official')
-        .then(res => {
-          this.name = res.name;
-          this.photoUrl = res.photoUrl;
-          this.regionName = res.regionName;
-          this.position = res.position;
-          this.income = res.income;
-          this.declaratorUrl = res.declaratorUrl;
-
-          this.$store.commit('addPerson', res);
-        });
-
-      axios
-        .get('item')
-        .then(res => {
-
-        });
+      // axios
+      //   .get('official')
+      //   .then(res => {
+      //     this.name = res.name;
+      //     this.photoUrl = res.photoUrl;
+      //     this.regionName = res.regionName;
+      //     this.position = res.position;
+      //     this.income = res.income;
+      //     this.declaratorUrl = res.declaratorUrl;
+      //
+      //     this.$store.commit('addPerson', res);
+      //   });
+      //
+      // axios
+      //   .get('item')
+      //   .then(res => {
+      //
+      //   });
     },
 
     computed: {
