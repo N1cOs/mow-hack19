@@ -2,6 +2,8 @@ import requests
 import json
 from app.model.official import Official
 
+REGION_CACHE = {}
+
 
 def get_official(region, declaration_index):
     declaration = get_declaration(region, declaration_index)
@@ -58,14 +60,22 @@ def get_declaration(region, index):
 
 
 def get_declaration_count(region):
-    r = requests.get('https://declarator.org/api/v1/search/sections/?region=' + str(region))
-    data = json.loads(r.content)
+    data = _get_region_data(region)
     return data['count']
 
 
 def get_region(number):
-    r = requests.get('https://declarator.org/api/v1/search/sections/?region=' + str(number))
-    data = json.loads(r.content)
+    data = _get_region_data(number)
     results = data['results']
     if results:
         return results[0]['main']['office']['region']['name']
+
+
+def _get_region_data(region):
+    resp = REGION_CACHE.get(region)
+    if resp is None:
+        r = requests.get('https://declarator.org/api/v1/search/sections/?region=' + str(region))
+        resp = json.loads(r.content)
+        REGION_CACHE[region] = resp
+    
+    return resp
