@@ -18,7 +18,7 @@ def init():
         while line != '':
             id, name, surname, patronymic, photo = line.split()
             name = f'{name} {surname} {patronymic}'
-            OFFICIALS[id] = Official(int(id), photo, name)
+            OFFICIALS[int(id)] = Official(int(id), photo, name)
             line = file.readline()
 
 
