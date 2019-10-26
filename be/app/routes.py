@@ -22,7 +22,25 @@ def init():
 
 @app.route('/official', methods=['GET'])
 def official():
-    return 'official'
+    prh_ids = request.args.get('ids')
+    if prh_ids is None:
+        prh_ids = []
+    else:
+        prh_ids = list(prh_ids)
+    
+    ids = [i for i in OFFICIALS if i not in prh_ids]
+    id = ids[randint(0, len(ids) - 1)]
+    official = OFFICIALS[id]
+    
+    pos, region, income, year, declaration_url = api.get_official_info(id)
+    official.position = pos
+    official.regionName = region
+    official.income = income
+    official.year = year
+    official.declarationUrl = declaration_url
+
+    return jsonify(vars(official))
+
 
 
 @app.route('/item', methods=['GET'])

@@ -5,7 +5,7 @@ from app.model.official import Official
 REGION_CACHE = {}
 
 
-def get_official(person_id):
+def get_official_info(person_id):
     person = get_person(person_id)
     name = person['family_name'] + ' ' + person['name'] + ' ' + person['patronymic']
     sections = get_sections(name)
@@ -22,12 +22,12 @@ def get_official(person_id):
     year = declaration['main']['year']
 
     if declaration['main']['office']['region']:
-        region = declaration['office']['region']['id']
+        region = declaration['main']['office']['region']['id']
     else:
         region = None
     region_name = get_region_name(region)
 
-    return Official(person_id, photo_url, name, position, region_name, total_income, year, declaration_url)
+    return position, region_name, total_income, year, declaration_url
 
 
 def get_person(person_id):
