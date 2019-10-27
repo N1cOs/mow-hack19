@@ -1,11 +1,11 @@
 <template>
   <div>
-    <loading 
+    <loading
       :active.sync="isLoading"
-      opacity="1"
+      :opacity="1"
       background-color="#000"
       color="#fff"
-      is-full-page="true"></loading>
+      :is-full-page="true"></loading>
     <background
       :surname="surname"
       :name="nameAndSecondName"
@@ -74,7 +74,7 @@
             myAxios.get(`/item?income=${Math.floor(this.flooredIncome)}`)
               .then(res => {
                 this.itemsObject = res.data;
-                this.isLoading = false; 
+                this.isLoading = false;
               });
           })
           .catch(err => {

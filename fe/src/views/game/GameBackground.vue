@@ -27,7 +27,7 @@
               {{ this.position }}
             </p>
             <p class="income">
-              {{ `${this.items.totalSumStr} Р` }}
+              {{ `${this.income} Р` }}
             </p>
             <p class="region">
               Москва
@@ -392,8 +392,10 @@
     color: #B6A6FC;
     font-size: 20px;
     line-height: 20px;
-    position: absolute;
-    top: 64%;
+    position: fixed;
+    top: 91%;
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .p-3::after {
