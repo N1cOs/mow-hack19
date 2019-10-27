@@ -9,7 +9,11 @@
         Неверно!
       </span>
     </div>
-    <div :class="['yellow', 'xl-h', successPurple, failPurple]" @click="tryYellow" ref="yellow">
+    <div
+      :class="['yellow', 'xl-h', successPurple, failPurple]"
+      @click="tryYellow"
+      ref="yellow"
+    >
       <div class="yellow-border">
         {{ this.surname }}
       </div>
@@ -54,7 +58,7 @@
       v-if="this.items.items ? this.items.items[1] : false"
     >
       <div class="purple-inner">
-        {{ items.items[1].item_count }}
+        {{ items.items[1].item_count + ' ' + items.items[1].item_unit }}
       </div>
       <div class="purple-border">
         {{ items.items[1].item_name }}
@@ -66,11 +70,14 @@
       v-if="this.items.items ? this.items.items[2] : false"
     >
       <div class="purple-inner">
-        {{ items.items[2].item_count }}
+        {{ items.items[2].item_count + ' ' + items.items[2].item_unit }}
       </div>
       <div class="purple-border">
         {{ items.items[2].item_name }}
       </div>
+    </div>
+    <div class="question" v-show="!(showFalse || showTrue)">
+      Что больше?
     </div>
   </div>
 </template>
@@ -133,6 +140,7 @@
             setTimeout(() => {
               this.showTrue = true;
             }, 1000);
+            this.$store.commit('addPoint');
             setTimeout(() => this.$emit('getnext'), 2000);
           } else {
             this.failY = true;
@@ -150,6 +158,7 @@
             this.successP = true;
             setTimeout(() => this.showTrue = true, 1000);
             setTimeout(() => this.$emit('getnext'), 2000);
+            this.$store.commit('addPoint');
           } else {
             this.failP = true;
             setTimeout(() => this.showFalse = true, 1000);
@@ -338,13 +347,6 @@
     width: 100%;
     top: 34%;
     background-color: var(--purple);
-    /*z-index: 1;*/
-  }
-
-  .p-1 .purple-border {
-    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
-    top: 3em;
-    padding-bottom: 11px;
   }
 
   .purple::after {
@@ -358,7 +360,15 @@
     transform: skewY(-4.33deg);
     background-color: inherit;
     z-index: 1;
-    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
+  }
+
+  .p-1 .purple-border {
+    top: 121px;
+  }
+
+  .p-1 .purple-inner {
+    top: 120px;
+    right: 176px;
   }
 
   .purple-inner {
@@ -382,10 +392,9 @@
     color: #B6A6FC;
     font-size: 20px;
     line-height: 20px;
-    position: relative;
+    position: absolute;
     top: 64%;
   }
-
 
   .p-3::after {
     box-shadow: 0px 24px 29px 12px rgba(0, 0, 0, 0.55);
@@ -408,32 +417,35 @@
     z-index: 2;
   }
 
-  .p-1 .purple-inner {
-    position: relative;
-    left: -150px;
-    top: 111px;
-  }
-
   .p-2 .purple-inner {
-    top: 100%;
+    top: 92px;
     position: relative;
-    right: -40%;
+    right: -123px;
   }
 
   .p-2 .purple-border {
     transform: rotate(4.33deg);
-    top: 2.6em;
-    right: 11%;
+    top: 98px;
+    right: -13px;
+    text-align: left;
   }
 
   .p-3 .purple-border {
-    top: 2.2em;
+    top: 97px;
     transform: rotate(4.33deg);
   }
 
-  .p-3 .purple-inner{
+  .p-3 .purple-inner {
     position: relative;
-    left: -146px;
+    left: -176px;
     top: 70px;
+  }
+
+  .purple .purple-inner {
+    display: inline-block;
+  }
+
+  .p-1 .purple-inner {
+    left: -176px;
   }
 </style>

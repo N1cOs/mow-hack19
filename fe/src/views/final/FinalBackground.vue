@@ -18,9 +18,16 @@
         Поделиться результатом
       </div>
     </div>
-    <div class="lookForHistory">
-      Посмотреть историю вопросов
-    </div>
+    <router-link to="/history">
+      <div class="lookForHistory">
+        Посмотреть историю вопросов
+      </div>
+    </router-link>
+    <router-link to="/game">
+      <div class="testAgain">
+        Играть еще раз
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -140,16 +147,55 @@
     display: inline-block;
   }
 
-  .lookForHistory {
-    background-color: var(--yellow);
-    width: 100%;
+  .testAgain {
     position: absolute;
     height: 9%;
-    top: 65%;
+    width: 100%;
+    top: 80%;
+    background-color: var(--purple);
     z-index: 1;
     font-size: 20px;
     color: #B6A6FC;
     padding-top: 20px;
+  }
+
+  .testAgain::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: bottom right;
+    transform: skewY(-4.33deg);
+    background-color: var(--purple);
+    z-index: -1;
+  }
+
+  .testAgain::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: top right;
+    transform: skewY(4.33deg);
+    background-color: var(--purple);
+    z-index: -1;
+  }
+
+  .lookForHistory {
+    background-color: var(--yellow);
+    width: 100%;
+    position: absolute;
+    height: 11%;
+    top: 65%;
+    z-index: 1;
+    font-size: 20px;
+    color: #C8A061;
+    padding-top: 20px;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
   }
 
   .lookForHistory::before {
@@ -163,6 +209,7 @@
     transform: skewY(-4deg);
     background-color: var(--yellow);
     z-index: -1;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
   }
 
   .lookForHistory::after {
@@ -176,6 +223,7 @@
     transform: skewY(4deg);
     background-color: var(--yellow);
     z-index: -1;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
   }
 
   .purple-inner {

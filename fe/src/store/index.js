@@ -14,6 +14,10 @@ export default new Vuex.Store({
     },
     addPerson: (state, payload) => {
       state.persons.push(payload);
+    },
+    setToInitial: state => {
+      state.score = 0;
+      state.persons = [];
     }
   },
   actions: {

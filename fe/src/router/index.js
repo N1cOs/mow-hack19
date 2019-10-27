@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import StartScreen from '../views/StartScreen';
 import GameScreen from '../views/GameScreen';
 import FinalScreen from '../views/FinalScreen';
+import HistorySreen from '../views/HistoryScreen';
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -22,10 +24,29 @@ const routes = [
     name: 'final',
     component: FinalScreen,
   },
+  {
+    path: '/history',
+    name: 'history',
+    component: HistorySreen
+  }
 ];
 
 const router = new VueRouter({
   routes,
+});
+
+const clearStore = () => {
+  store.state.score = 0;
+  store.state.persons = [];
+};
+
+router.beforeEach((to, from, next) => {
+  if (router.resolve(to.path).route.name === '/game') {
+    store.commit('setToInitial');
+    next('/game')
+  }
+
+  next();
 });
 
 export default router;
