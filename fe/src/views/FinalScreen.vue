@@ -1,7 +1,5 @@
 <template>
-  <final-background>
-
-  </final-background>
+  <final-background />
 </template>
 
 <script>

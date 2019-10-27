@@ -3,10 +3,11 @@
     <background
       :surname="surname"
       :name="nameAndSecondName"
-      :position="position"
+      :position="computedPosition"
       :regionName="regionName || 'Российская Федерация'"
       :photoUrl="photoUrl"
       :items="itemsObject"
+      :income="flooredIncome"
       @getnext="getData"
     />
   </div>
@@ -60,28 +61,52 @@
             });
           })
           .then(res => {
-            myAxios.get(`/item?income=${Math.floor(this.income)}`)
+            myAxios.get(`/item?income=${Math.floor(this.flooredIncome)}`)
               .then(res => {
-                console.log('item', res);
+                console.log('item', res.data);
                 this.itemsObject = res.data;
-              })
+              });
           });
       },
     },
 
     mounted() {
-     this.getData();
+      this.getData();
     },
 
     computed: {
       surname() {
-        return name.split(' ')[0];
+        return this.name.split(' ')[0];
       },
 
       nameAndSecondName() {
-        const nameSplitted = name.split(' ');
+        const nameSplitted = this.name.split(' ');
         return `${nameSplitted[1]} ${nameSplitted[2]}`;
+      },
+
+      computedPosition() {
+        return this.position ?
+          this.position.length > 48
+            ? (() => {
+            const position = this.position.substr(0, 48);
+            let continuePos = this.position.substr(48);
+            console.log(position, continuePos);
+            continuePos = continuePos.split(' ')[0];
+            return `${position + continuePos}...`;
+          })() :
+          this.position : '';
+      },
+
+      flooredIncome() {
+        return Math.floor(this.income);
       }
     }
   };
 </script>
+
+<style scoped>
+  div {
+    width: 100%;
+    height: 100%;
+  }
+</style>

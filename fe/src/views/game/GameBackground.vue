@@ -1,10 +1,6 @@
 <template>
   <div class="root">
-    <div style="position: fixed;
-    left: 50%;
-    transform: translate(-50%);
-    top: 8%;
-    font-size: 48px;
+    <div style="position: fixed; left: 50%; transform: translate(-50%); top: 8%; font-size: 48px;
      line-height: 20px;">
       <span v-show="showTrue" style="color: #7BF5C2">
         Верно!
@@ -27,26 +23,54 @@
               {{ this.position }}
             </p>
             <p class="income">
-              {{ `${this.income} Р` }}
+              {{ `${this.items.totalSumStr} Р` }}
             </p>
             <p class="region">
               Москва
             </p>
           </div>
-          <img :src="this.photoUrl" width="115" height="150">
+          <div style="height: 150px; width: 115px; overflow: hidden; margin-top: -10px">
+            <img :src="this.photoUrl" height="150">
+          </div>
         </div>
       </div>
     </div>
-    <div :class="['purple', 'xs-h', successYellow, failYellow]" @click="tryPurple" ref="purple">
+    <div
+      :class="['purple', 'xs-h', successYellow, failYellow, 'p-1']"
+      @click="tryPurple"
+      v-if="items.items"
+    >
       <div class="purple-inner">
-
+        {{ items.items[0].item_count + ' ' + items.items[0].item_unit }}
       </div>
       <div class="purple-border">
+        {{ items.items[0].item_name }}
 
       </div>
     </div>
-    <div class="question" v-show="!(showFalse || showTrue)">
-      Что больше?
+    <div
+      :class="['purple', 'xs-h', successYellow, failYellow, 'p-2']"
+      @click="tryPurple"
+      v-if="this.items.items ? this.items.items[1] : false"
+    >
+      <div class="purple-inner">
+        {{ items.items[1].item_count }}
+      </div>
+      <div class="purple-border">
+        {{ items.items[1].item_name }}
+      </div>
+    </div>
+    <div
+      :class="['purple', 'xs-h', successYellow, failYellow, 'p-3']"
+      @click="tryPurple"
+      v-if="this.items.items ? this.items.items[2] : false"
+    >
+      <div class="purple-inner">
+        {{ items.items[2].item_count }}
+      </div>
+      <div class="purple-border">
+        {{ items.items[2].item_name }}
+      </div>
     </div>
   </div>
 </template>
@@ -83,41 +107,55 @@
       photoUrl: {
         default: 'https://declarator.org/media/cache/43/de/43deb2166a8c3d500277420c8d1850a1.png'
       },
-      items: [],
+      items: {
+        default: {}
+      },
       income: {
         default: 1000000
       }
     },
 
     methods: {
+      init() {
+        this.successY = false;
+        this.successP = false;
+        this.failY = false;
+        this.failP = false;
+        this.showTrue = false;
+        this.showFalse = false;
+        this.buttonPressed = false;
+      },
+
       tryYellow() {
         if (!this.buttonPressed) {
-          if (this.income >= 100) {
+          if (this.income >= this.items.totalSum) {
             this.successY = true;
             setTimeout(() => {
               this.showTrue = true;
             }, 1000);
+            setTimeout(() => this.$emit('getnext'), 2000);
           } else {
             this.failY = true;
             setTimeout(() => this.showFalse = true, 1000);
+            setTimeout(() => this.$router.push('/final'), 2000);
           }
 
-          setTimeout(() => this.$emit('getnext',), 2000);
           this.buttonPressed = true;
         }
       },
 
       tryPurple() {
         if (!this.buttonPressed) {
-          if (100 >= this.income) {
+          if (this.items.totalSum >= this.income) {
             this.successP = true;
             setTimeout(() => this.showTrue = true, 1000);
+            setTimeout(() => this.$emit('getnext'), 2000);
           } else {
             this.failP = true;
             setTimeout(() => this.showFalse = true, 1000);
+            setTimeout(() => this.$router.push('/final'), 2000);
           }
 
-          setTimeout(() => this.$forceUpdate(), 2000);
           this.buttonPressed = true;
         }
       },
@@ -139,6 +177,13 @@
       failPurple() {
         return this.failP ? 'fail-purple' : '';
       },
+    },
+
+    watch: {
+      photoUrl() {
+        this.init();
+        console.log(this.items);
+      }
     }
   };
 </script>
@@ -159,6 +204,11 @@
   .success-yellow .purple-inner, .fail-yellow .purple-inner {
     transition: color 0.5s ease;
     color: rgb(108, 93, 65);
+  }
+
+  .p-2::after {
+    box-shadow: 0px 24px 29px 12px rgba(0, 0, 0, 0.55);
+
   }
 
   .yellow.success-purple, .yellow.fail-purple {
@@ -205,7 +255,7 @@
   }
 
   .yellow .info div {
-    margin-top: 70px;
+    margin-top: 60px;
   }
 
   .yellow-border {
@@ -228,7 +278,7 @@
     font-size: 14px;
     line-height: 20px;
     margin-top: -34px;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
   }
 
   .yellow .income {
@@ -236,7 +286,7 @@
     font-size: 24px;
     line-height: 20px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
   }
 
   .yellow-inner .name {
@@ -284,11 +334,17 @@
 
   .purple {
     position: relative;
-    height: 15.8%;
+    height: 15%;
     width: 100%;
-    top: 41%;
+    top: 34%;
     background-color: var(--purple);
-    z-index: 1;
+    /*z-index: 1;*/
+  }
+
+  .p-1 .purple-border {
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
+    top: 3em;
+    padding-bottom: 11px;
   }
 
   .purple::after {
@@ -298,12 +354,11 @@
     height: 100%;
     top: 61px;
     left: 0;
-    -webkit-transform-origin: top left;
-    transform-origin: top left;
-    -webkit-transform: skewY(5deg);
+    transform-origin: top right;
     transform: skewY(-4.33deg);
     background-color: inherit;
-    z-index: -1;
+    z-index: 1;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
   }
 
   .purple-inner {
@@ -329,5 +384,56 @@
     line-height: 20px;
     position: relative;
     top: 64%;
+  }
+
+
+  .p-3::after {
+    box-shadow: 0px 24px 29px 12px rgba(0, 0, 0, 0.55);
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 61px;
+    left: 0;
+    transform-origin: top right;
+    transform: skewY(4.33deg);
+    background-color: inherit;
+    z-index: 1;
+  }
+
+  .purple .purple-inner, .purple .purple-border {
+    color: #FBD08B;
+    font-size: 36px;
+    line-height: 20px;;
+    z-index: 2;
+  }
+
+  .p-1 .purple-inner {
+    position: relative;
+    left: -150px;
+    top: 111px;
+  }
+
+  .p-2 .purple-inner {
+    top: 100%;
+    position: relative;
+    right: -40%;
+  }
+
+  .p-2 .purple-border {
+    transform: rotate(4.33deg);
+    top: 2.6em;
+    right: 11%;
+  }
+
+  .p-3 .purple-border {
+    top: 2.2em;
+    transform: rotate(4.33deg);
+  }
+
+  .p-3 .purple-inner{
+    position: relative;
+    left: -146px;
+    top: 70px;
   }
 </style>
