@@ -2,24 +2,26 @@
   <div
     :class="classYellowOrPurple"
   >
-    <div class="inner">
-      <div class="name">
-        {{ this.name }}
-      </div>
-      <div class="info" style="margin-top: 20px">
-        <div>
-          <p class="income">
-            {{ `${this.income} Р` }}
-          </p>
-          <p class="region">
-            Москва
-          </p>
+    <a :href="href">
+      <div class="inner">
+        <div class="name">
+          {{ this.name }}
         </div>
-        <div style="height: 150px; width: 115px; overflow: hidden; ">
-          <img :src="this.photoUrl" height="150">
+        <div class="info" style="margin-top: 20px">
+          <div>
+            <p class="income">
+              {{ `${this.income} Р` }}
+            </p>
+            <p class="region">
+              Москва
+            </p>
+          </div>
+          <div style="height: 150px; width: 115px; overflow: hidden; ">
+            <img :src="this.photoUrl" height="150">
+          </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -42,6 +44,9 @@
       },
       index: {
         default: -1
+      },
+      href: {
+        default: ''
       }
     },
 
@@ -125,4 +130,4 @@
     background-color: #7765C2;
     color: #FBD08B;
   }
-  </style>
+</style>

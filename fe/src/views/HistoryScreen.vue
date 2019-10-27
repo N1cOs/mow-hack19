@@ -10,6 +10,7 @@
         :name="person.name"
         :income="person.income"
         :index="index"
+        :href="person.declarationUrl"
       />
     </a>
   </div>
