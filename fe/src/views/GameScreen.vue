@@ -1,5 +1,16 @@
 <template>
-  <background @getnext="getData"/>
+  <div>
+    <background
+      :surname="surname"
+      :name="nameAndSecondName"
+      :position="computedPosition"
+      :regionName="regionName || 'Российская Федерация'"
+      :photoUrl="photoUrl"
+      :items="itemsObject"
+      :income="flooredIncome"
+      @getnext="getData"
+    />
+  </div>
 </template>
 
 <script>
@@ -23,8 +34,8 @@
         photoUrl: '',
         regionName: null,
         position: null,
-        products: [],
-        income: 0
+        income: 0,
+        itemsObject: {}
       };
     },
 
@@ -32,34 +43,70 @@
       getData() {
         myAxios.get('/official')
           .then(res => {
-            this.name = res.name;
-            this.photoUrl = res.photo_url;
-            this.regionName = res.region_name;
-            this.position = res.position;
-            this.income = res.income;
-            this.declaratorUrl = res.declarator_url;
+            console.log('official', res);
+            this.name = res.data.name;
+            this.photoUrl = res.data.photo_url;
+            this.regionName = res.data.region_name;
+            this.position = res.data.position;
+            this.income = res.data.income;
+            this.declaratorUrl = res.data.declarator_url;
 
-            this.$store.commit('addPerson', res);
+            this.$store.commit('addPerson', {
+              name: this.name,
+              photoUrl: this.photoUrl,
+              regionName: this.regionName,
+              position: this.position,
+              income: this.income,
+              declarationUrl: this.declaratorUrl
+            });
           })
           .then(res => {
-
+            myAxios.get(`/item?income=${Math.floor(this.flooredIncome)}`)
+              .then(res => {
+                console.log('item', res.data);
+                this.itemsObject = res.data;
+              });
           });
       },
     },
 
     mounted() {
-     this.getData();
+      this.getData();
     },
 
     computed: {
       surname() {
-        return name.split(' ')[0];
+        return this.name.split(' ')[0];
       },
 
       nameAndSecondName() {
-        const nameSplitted = name.split(' ');
+        const nameSplitted = this.name.split(' ');
         return `${nameSplitted[1]} ${nameSplitted[2]}`;
+      },
+
+      computedPosition() {
+        return this.position ?
+          this.position.length > 48
+            ? (() => {
+            const position = this.position.substr(0, 48);
+            let continuePos = this.position.substr(48);
+            console.log(position, continuePos);
+            continuePos = continuePos.split(' ')[0];
+            return `${position + continuePos}...`;
+          })() :
+          this.position : '';
+      },
+
+      flooredIncome() {
+        return Math.floor(this.income);
       }
     }
   };
 </script>
+
+<style scoped>
+  div {
+    width: 100%;
+    height: 100%;
+  }
+</style>

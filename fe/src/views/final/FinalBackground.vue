@@ -1,21 +1,33 @@
 <template>
   <div class="root">
     <div class="yellow xl-h">
-      <div  class="yellow-border">
-        Bluckwheat
+      <div class="yellow-border">
+        Buckwheat
       </div>
       <div class="yellow-inner">
-
+        <div class="label">
+          Ваш результат:
+        </div>
+        <p style="margin-top: -89px;">
+          {{ this.$store.state.score }}
+        </p>
       </div>
     </div>
     <div class="purple xs-h">
       <div class="purple-inner">
-
-      </div>
-      <div class="purple-border">
-        salary
+        Поделиться результатом
       </div>
     </div>
+    <router-link to="/history">
+      <div class="lookForHistory">
+        Посмотреть историю вопросов
+      </div>
+    </router-link>
+    <router-link to="/game">
+      <div class="testAgain">
+        Играть еще раз
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -43,7 +55,6 @@
 
   .yellow-border {
     font-size: 48px;
-    /*line-height: 20px;*/
     color: #FBD08B;
     transform: rotate(-12.74deg);
     top: -1.65em;
@@ -51,11 +62,12 @@
     position: relative;
   }
 
+
   .yellow-inner {
     color: var(--purple);
     font-size: 72px;
     position: relative;
-    bottom: 25%;
+    bottom: 45%;
   }
 
   .yellow::before {
@@ -87,9 +99,9 @@
 
   .purple {
     position: relative;
-    height: 11%;
+    height: 13%;
     width: 100%;
-    top: 41%;
+    top: 40%;
     background-color: var(--purple);
     z-index: 1;
   }
@@ -110,7 +122,7 @@
   .purple-inner {
     font-size: 20px;
     color: #B6A6FC;
-    top: 65%;
+    top: 75%;
     position: relative;
   }
 
@@ -122,5 +134,102 @@
     transform: rotate(-4.33deg);
     text-align: right;
     padding-right: 6%;
+  }
+
+  .yellow-inner .label {
+    font-size: 24px;
+    line-height: 20px;
+    transform: rotate(-13.81deg);
+    position: relative;
+    top: -5em;
+    font-weight: 500;
+    right: -25%;
+    display: inline-block;
+  }
+
+  .testAgain {
+    position: absolute;
+    height: 9%;
+    width: 100%;
+    top: 80%;
+    background-color: var(--purple);
+    z-index: 1;
+    font-size: 20px;
+    color: #B6A6FC;
+    padding-top: 20px;
+  }
+
+  .testAgain::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: bottom right;
+    transform: skewY(-4.33deg);
+    background-color: var(--purple);
+    z-index: -1;
+  }
+
+  .testAgain::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: top right;
+    transform: skewY(4.33deg);
+    background-color: var(--purple);
+    z-index: -1;
+  }
+
+  .lookForHistory {
+    background-color: var(--yellow);
+    width: 100%;
+    position: absolute;
+    height: 11%;
+    top: 65%;
+    z-index: 1;
+    font-size: 20px;
+    color: #C8A061;
+    padding-top: 20px;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
+  }
+
+  .lookForHistory::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: skewY(-4deg);
+    background-color: var(--yellow);
+    z-index: -1;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
+  }
+
+  .lookForHistory::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: bottom left;
+    transform: skewY(4deg);
+    background-color: var(--yellow);
+    z-index: -1;
+    box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.25);
+  }
+
+  .purple-inner {
+    font-size: 20px;
+    color: #B6A6FC;
+    top: 75%;
+    position: relative;
   }
 </style>
