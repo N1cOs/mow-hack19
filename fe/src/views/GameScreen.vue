@@ -54,12 +54,13 @@
         this.isLoading = true;
         myAxios.get('/official')
           .then(res => {
+            console.log(res.data);
             this.name = res.data.name;
             this.photoUrl = res.data.photo_url;
             this.regionName = res.data.region_name;
             this.position = res.data.position;
             this.income = res.data.income;
-            this.declaratorUrl = res.data.declarator_url;
+            this.declaratorUrl = res.data.declarationUrl;
 
             this.$store.commit('addPerson', {
               name: this.name,
