@@ -41,9 +41,9 @@ const clearStore = () => {
 };
 
 router.beforeEach((to, from, next) => {
-  if (router.resolve(to.path).route.name === '/game') {
+  if (router.resolve(to.path).route.name === 'game') {
     store.commit('setToInitial');
-    next('/game')
+    next()
   }
 
   next();
