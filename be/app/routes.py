@@ -49,7 +49,8 @@ def official():
     income = inflation.calc_inflation(income, year)
     official.position = pos
     official.regionName = region
-    official.income = income
+    official.income = round(income)
+    official.incomeStr = f'{official.income:,}'.replace(',', ' ')
     official.year = year
     official.declarationUrl = declaration_url
 
@@ -69,7 +70,10 @@ def item():
     for item in items:
         resp['items'].append(vars(item))
         total_sum += item.full_price
+
+    total_sum = round(total_sum)
     resp['totalSum'] = total_sum
+    resp['totalSumStr'] = f'{total_sum:,}'.replace(',', ' ')
 
     return jsonify(resp)
 
