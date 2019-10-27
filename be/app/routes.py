@@ -50,7 +50,7 @@ def official():
     official.position = pos
     official.regionName = region
     official.income = round(income)
-    official.incomeStr = f'{official.income:,}'
+    official.incomeStr = f'{official.income:,}'.replace(',', ' ')
     official.year = year
     official.declarationUrl = declaration_url
 
@@ -73,7 +73,7 @@ def item():
 
     total_sum = round(total_sum)
     resp['totalSum'] = total_sum
-    resp['totalSumStr'] = f'{total_sum:,}'
+    resp['totalSumStr'] = f'{total_sum:,}'.replace(',', ' ')
 
     return jsonify(resp)
 
