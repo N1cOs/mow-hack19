@@ -1,5 +1,11 @@
 <template>
   <div>
+    <loading 
+      :active.sync="isLoading"
+      opacity="1"
+      background-color="#000"
+      color="#fff"
+      is-full-page="true"></loading>
     <background
       :surname="surname"
       :name="nameAndSecondName"
@@ -14,6 +20,8 @@
 </template>
 
 <script>
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
   import Background from './game/GameBackground';
   import axios from 'axios';
 
@@ -26,6 +34,7 @@
 
     components: {
       Background,
+      Loading
     },
 
     data() {
@@ -35,15 +44,16 @@
         regionName: null,
         position: null,
         income: 0,
-        itemsObject: {}
+        itemsObject: {},
+        isLoading: false,
       };
     },
 
     methods: {
       getData() {
+        this.isLoading = true;
         myAxios.get('/official')
           .then(res => {
-            console.log('official', res);
             this.name = res.data.name;
             this.photoUrl = res.data.photo_url;
             this.regionName = res.data.region_name;
@@ -63,9 +73,13 @@
           .then(res => {
             myAxios.get(`/item?income=${Math.floor(this.flooredIncome)}`)
               .then(res => {
-                console.log('item', res.data);
                 this.itemsObject = res.data;
+                this.isLoading = false; 
               });
+          })
+          .catch(err => {
+            console.log('Error occured');
+            this.isLoading = false;
           });
       },
     },
