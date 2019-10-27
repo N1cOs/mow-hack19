@@ -28,6 +28,11 @@ const routes = [
     path: '/history',
     name: 'history',
     component: HistorySreen
+  },
+  {
+    path: '*',
+    name: 'all',
+    component: StartScreen
   }
 ];
 
