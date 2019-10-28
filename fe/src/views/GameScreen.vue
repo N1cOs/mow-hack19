@@ -14,6 +14,7 @@
       :photoUrl="photoUrl"
       :items="itemsObject"
       :income="flooredIncome"
+      :incomeFormatted="incomeFormatted"
       @getnext="getData"
     />
   </div>
@@ -46,6 +47,7 @@
         income: 0,
         itemsObject: {},
         isLoading: false,
+        incomeFormatted: ''
       };
     },
 
@@ -54,13 +56,14 @@
         this.isLoading = true;
         myAxios.get('/official')
           .then(res => {
-            console.log(res.data);
+            console.log(res.data.incomeStr);
             this.name = res.data.name;
             this.photoUrl = res.data.photo_url;
             this.regionName = res.data.region_name;
             this.position = res.data.position;
             this.income = res.data.income;
             this.declaratorUrl = res.data.declarationUrl;
+            this.incomeFormatted = res.data.incomeStr;
 
             this.$store.commit('addPerson', {
               name: this.name,

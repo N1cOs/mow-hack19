@@ -27,7 +27,7 @@
               {{ this.position }}
             </p>
             <p class="income">
-              {{ `${this.income} Р` }}
+              {{ `${this.incomeFormatted} Р` }}
             </p>
             <p class="region">
               Москва
@@ -119,7 +119,10 @@
       },
       income: {
         default: 1000000
-      }
+      },
+      incomeFormatted: {
+        default: ''
+      },
     },
 
     methods: {

@@ -13,7 +13,7 @@
               {{ `${this.income} Р` }}
             </p>
             <p class="region">
-              Москва
+              {{ this.regionName }}
             </p>
           </div>
           <div style="height: 150px; width: 115px; overflow: hidden; ">
@@ -46,6 +46,9 @@
         default: -1
       },
       href: {
+        default: ''
+      },
+      regionName: {
         default: ''
       }
     },
