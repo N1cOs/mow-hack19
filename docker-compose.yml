@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  bws-fe:
+    container_name: bws-fe
+    build:
+      context: fe/
+    ports:
+    - "8001:80"
+  bws-be:
+    container_name: bws-be
+    build:
+      context: be/
+    expose:
+    - "80"
