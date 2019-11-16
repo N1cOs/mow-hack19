@@ -1,0 +1,7 @@
+venv/**
+README.md
+Dockerfile
+**/__pycache__/**
+.vscode/**
+app/parse_items.py
+app/tmp/to_categorized_items.py
