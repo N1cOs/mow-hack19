@@ -30,7 +30,7 @@
               {{ `${this.incomeFormatted} Р` }}
             </p>
             <p class="region">
-              Москва
+              {{ `${this.regionName}` }}
             </p>
           </div>
           <div style="height: 150px; width: 115px; overflow: hidden; margin-top: -10px">

@@ -28,15 +28,12 @@ const routes = [
     path: '/history',
     name: 'history',
     component: HistorySreen
-  },
-  {
-    path: '*',
-    name: 'all',
-    component: StartScreen
   }
 ];
 
 const router = new VueRouter({
+  // hardcoded base
+  base: '/bws',
   mode:'history',
   routes
 });

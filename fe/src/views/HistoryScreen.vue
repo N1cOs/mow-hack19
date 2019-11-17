@@ -34,7 +34,6 @@
 
     created() {
       this.guys = this.$store.state.persons;
-      console.log(this.guys)
     }
   };
 </script>
