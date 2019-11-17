@@ -1,10 +1,12 @@
 FROM node:12.13.0-alpine as builder
 
-COPY . /app
-
 WORKDIR /app
 
-RUN npm install 
+COPY package*.json ./
+
+RUN npm install --production
+
+COPY . .
 
 RUN npm run build
 
@@ -14,4 +16,4 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 COPY nginx.conf /etc/nginx/conf.d
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html/bws
