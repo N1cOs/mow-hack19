@@ -5,6 +5,7 @@ import GameScreen from '../views/GameScreen';
 import FinalScreen from '../views/FinalScreen';
 import HistorySreen from '../views/HistoryScreen';
 import store from '../store/index';
+import config from '../../vue.config'
 
 Vue.use(VueRouter);
 
@@ -32,8 +33,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  // hardcoded base
-  base: '/bws',
+  base: config.publicPath,
   mode:'history',
   routes
 });
